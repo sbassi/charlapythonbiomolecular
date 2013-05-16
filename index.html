@@ -1,0 +1,754 @@
+<!doctype html>
+
+<!--
+
+    Welcome to the light side of the source, young padawan.
+
+    One step closer to learn something interesting you are...
+
+                               ____                  
+                            _.' :  `._               
+                        .-.'`.  ;   .'`.-.           
+               __      / : ___\ ;  /___ ; \      __  
+             ,'_ ""=-.:__;".-.";: :".-.":__;.-="" _`,
+             :' `.t""=-.. '<@.`;_  ',@:` ..-=""j.' `;
+                  `:-.._J '-.-'L__ `-.-' L_..-;'     
+                    "-.__ ;  .-"  "-.  : __.-"       
+                        L ' /.======.\ ' J           
+                         "-.   "__"   .-"            
+                        __.l"-:_JL_;-";.__           
+                     .-j/'.;  ;""""  / .'\"-.        
+                   .' /:`. "-.:     .-" .';  `.      
+                .-"  / ;  "-. "-..-" .-"  :    "-.   
+             .+"-.  : :      "-.__.-"      ;-._   \  
+             ; \  `.; ;                    : : "+. ; 
+             :  ;   ; ;                    : ;  : \: 
+             ;  :   ; :                    ;:   ;  : 
+            : \  ;  :  ;                  : ;  /  :: 
+            ;  ; :   ; :                  ;   :   ;: 
+            :  :  ;  :  ;                : :  ;  : ; 
+            ;\    :   ; :                ; ;     ; ; 
+            : `."-;   :  ;              :  ;    /  ; 
+             ;    -:   ; :              ;  : .-"   : 
+             :\     \  :  ;            : \.-"      : 
+              ;`.    \  ; :            ;.'_..-=  / ; 
+              :  "-.  "-:  ;          :/."      .'  :
+               \         \ :          ;/  __        :
+                \       .-`.\        /t-""  ":-+.   :
+                 `.  .-"    `l    __/ /`. :  ; ; \  ;
+                   \   .-" .-"-.-"  .' .'j \  /   ;/ 
+                    \ / .-"   /.     .'.' ;_:'    ;  
+                     :-""-.`./-.'     /    `.___.'   
+                           \ `t  ._  /               
+                            "-.t-._:'                
+
+-->
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Biopython</title>
+    
+    <meta name="description" content="Presentacion Biopython" />
+    <meta name="author" content="Sebastian Bassi" />
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+
+    <!--
+        
+        Impress.js doesn't depend on any external stylesheet. Script adds all styles it needs for
+        presentation to work.
+        
+        This style below contains styles only for demo presentation. Browse it to see how impress.js
+        classes are used to style presentation steps, or how to apply fallback styles, but I don't want
+        you to use them directly in your presentation.
+        
+        Be creative, build your own. We don't really want all impress.js presentations to look the same,
+        do we?
+        
+        When creating your own presentation get rid of this file. Start from scratch, it's fun!
+        
+    -->
+    <link href="css/impress-demo.css" rel="stylesheet" />
+    
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+
+<!--
+    
+    Body element is used by impress.js to set some useful class names, that will allow you to detect
+    the support and state of the presentation in CSS or other scripts.
+    
+    First very useful class name is `impress-not-supported`. This class means, that browser doesn't
+    support features required by impress.js, so you should apply some fallback styles in your CSS.
+    It's not necessary to add it manually on this element. If the script detects that browser is not
+    good enough it will add this class, but keeping it in HTML means that users without JavaScript
+    will also get fallback styles.
+    
+    When impress.js script detects that browser supports all required features, this class name will
+    be removed.
+    
+    The class name on body element also depends on currently active presentation step. More details about
+    it can be found later, when `hint` element is being described.
+    
+-->
+<body class="impress-not-supported">
+
+<!--
+    For example this fallback message is only visible when there is `impress-not-supported` class on body.
+-->
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<!--
+    
+    Now that's the core element used by impress.js.
+    
+    That's the wrapper for your presentation steps. In this element all the impress.js magic happens.
+    It doesn't have to be a `<div>`. Only `id` is important here as that's how the script find it.
+    
+    You probably won't need it now, but there are some configuration options that can be set on this element.
+    
+    To change the duration of the transition between slides use `data-transition-duration="2000"` giving it
+    a number of ms. It defaults to 1000 (1s).
+    
+    You can also control the perspective with `data-perspective="500"` giving it a number of pixels.
+    It defaults to 1000. You can set it to 0 if you don't want any 3D effects.
+    If you are willing to change this value make sure you understand how CSS perspective works:
+    https://developer.mozilla.org/en/CSS/perspective
+    
+    But as I said, you won't need it for now, so don't worry - there are some simple but interesing things
+    right around the corner of this tag ;)
+    
+-->
+<div id="impress">
+
+    <!--
+        
+        Here is where interesting thing start to happen.
+        
+        Each step of the presentation should be an element inside the `#impress` with a class name
+        of `step`. These step elements are positioned, rotated and scaled by impress.js, and
+        the 'camera' shows them on each step of the presentation.
+        
+        Positioning information is passed through data attributes.
+        
+        In the example below we only specify x and y position of the step element with `data-x="-1000"`
+        and `data-y="-1500` attributes. This means that **the center** of the element (yes, the center)
+        will be positioned in point x = -1000px and y = -1500px of the presentation 'canvas'.
+        
+        It will not be rotated or scaled.
+        
+    -->
+    <div id="bored" class="step slide" data-x="-1000" data-y="-1500">
+
+        <q>Introducción a Python en Biología Molecular</q>
+<br>
+<br>
+<br>
+<p>Sebastian Bassi</p>
+<p>sbassi@genesdititales.com</p>
+<br>
+<br>
+<p>
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/2.5/ar/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Presentacion: Introducción a Python en Biología Molecular</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.about.me/bassi" property="cc:attributionName" rel="cc:attributionURL">Sebastián Bassi</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/2.5/ar/deed.en_US">Creative Commons Attribution-ShareAlike 2.5 Argentina License</a>.
+</p>
+
+    </div>
+
+    <!--
+        
+        The `id` attribute of the step element is used to identify it in the URL, but it's optional.
+        If it is not defined, it will get a default value of `step-N` where N is a number of slide.
+        
+        So in the example below it'll be `step-2`.
+        
+        The hash part of the url when this step is active will be `#/step-2`.
+        
+        You can also use `#step-2` in a link, to point directly to this particular step.
+        
+        Please note, that while `#/step-2` (with slash) would also work in a link it's not recommended.
+        Using classic `id`-based links like `#step-2` makes these links usable also in fallback mode.
+        
+    -->
+    <div id="slide2" class="step slide" data-x="0" data-y="-1500">
+        <span class="titlecommon">Algunas palabras sobre Python</span>
+<br><br><br><br>
+
+
+<ul>
+
+<li>Python es un lenguaje de propósito general, dinámico y de alto nivel</li>
+<li>Soporta múltiples paradigmas de programación: Imperativo, funcional y orientado a objetos</li>
+<li>Sistema de tipos de datos dinámicos y gestión automática de memoria</li>
+
+</ul>
+
+
+
+
+
+    </div>
+
+    <div class="step slide" data-x="1000" data-y="-1500">
+    <q> ¿Donde se usa Python?</q>
+<br><br><br>
+    <p>Desde lo mas chico...</p>
+
+    <img alt="RPI logo" style="border-width:0" src="raspberrypi.jpg" />
+
+
+
+    </div>
+
+    <!--
+        
+        This is an example of step element being scaled.
+        
+        Again, we use a `data-` attribute, this time it's `data-scale="4"`, so it means that this
+        element will be 4 times larger than the others.
+        From presentation and transitions point of view it means, that it will have to be scaled
+        down (4 times) to make it back to it's correct size.
+        
+    -->
+    <div id="title" class="step" data-x="0" data-y="0" data-scale="4">
+    <p>    <span class="try">A lo mas grande...</span></p>
+
+<br>
+<p>
+    <img alt="GAE logo" style="margin:0px auto;display:block" src="appengine-logo.gif" width="70%" />
+</p>
+    </div>
+
+    <!--
+        
+        This element introduces rotation.
+        Notation shouldn't be a surprise. We use `data-rotate="90"` attribute, meaning that this
+        element should be rotated by 90 degrees clockwise.
+        
+    -->
+    <div id="its" class="step" data-x="0" data-y="3500" data-rotate="90" data-scale="5">
+        <h1>Big Data</h1>
+
+<img alt="Genome.gov data" style="border-width:0" src="800px-Genome_sequencing_costs,_May_2012.jpg" />
+
+
+    </div>
+
+    <div id="seq1" class="step" data-x="3500" data-y="2100" data-rotate="180" data-scale="1">
+
+
+
+<img alt="RPI logo" style="border-width:0" src="Genejp1coldspringharbor.jpg" />
+
+<p>
+Mas información: <a href="http://www.nytimes.com/2011/12/01/business/dna-sequencing-caught-in-deluge-of-data.html?pagewanted=all&_r=0">DNA Sequencing Caught in Deluge of Data</a>
+</p>
+
+<p>Foto: The New York Times</p>
+
+    </div>
+
+    <!--
+
+        <p>visualize your <b>big</b> <span class="thoughts">thoughts</span></p>
+        
+        And now it gets really exciting! We move into third dimension!
+        
+        Along with `data-x` and `data-y`, you can define the position on third (Z) axis, with
+        `data-z`. In the example below we use `data-z="-3000"` meaning that element should be
+        positioned far away from us (by 3000px).
+        
+    -->
+    <div id="tiny" class="step" data-x="2525" data-y="2325" data-z="-3000" data-rotate="300" data-scale="1">
+ 
+<p>Bus de IonTorrent en Washington DC</p>
+
+ <a href="http://www.flickr.com/photos/sbassi/7166727492/" title="DSC01206 por sbassi, en Flickr"><img src="ionbus.jpg" width="559" height="261" alt="DSC01206"></a>
+
+ <a href="http://www.flickr.com/photos/sbassi/7166745246/" title="DSC01222 por sbassi, en Flickr"><img src="sebaionbus.jpg" width="419" height="289" alt="DSC01222"></a>
+
+
+    </div>
+
+    <!--
+        
+        This step here doesn't introduce anything new when it comes to data attributes, but you
+        should notice in the demo that some words of this text are being animated.
+        It's a very basic CSS transition that is applied to the elements when this step element is
+        reached.
+        
+        At the very beginning of the presentation all step elements are given the class of `future`.
+        It means that they haven't been visited yet.
+        
+        When the presentation moves to given step `future` is changed to `present` class name.
+        That's how animation on this step works - text moves when the step has `present` class.
+        
+        Finally when the step is left the `present` class is removed from the element and `past`
+        class is added.
+        
+        So basically every step element has one of three classes: `future`, `present` and `past`.
+        Only one current step has the `present` class.
+        
+    -->
+    <div id="ing2" class="step" data-x="3000" data-y="-650" data-rotate="270" data-scale="4">
+        
+        <b>Bioinformática</b>: Desarrollo de métodos computacionales para resolver problemas derivados del almacenamiento, extracción, manipulación y distribución de información relativa a macromoléculas biológicas, típicamente ADN, ARN y proteínas.
+
+
+    </div>
+
+    <div id="imagination" class="step" data-x="5650" data-y="-2000" data-scale="2">
+        <p>Algunas tareas bioinformáticas</p>
+<br>
+<ul>
+<li>Predicción de genes</li>
+<li>Montaje del genoma</li>
+<li>Predicción de estructura de proteínas</li>
+<li>Interacciones entre proteínas</li>
+<li>Relaciones evolutivas</li>
+</ul>
+
+    </div>
+
+    <div id="source2" class="step" data-x="5750" data-y="-800" data-rotate="0" data-scale="2">
+
+        <p>Ventajas de Python para Bioinformática</p>
+<br>
+<ul>
+<li>Manejo de texto y REGEX</li>
+<li>Modular</li>
+<li>Fácil de escribir</li>
+<li>Apto para aplicaciones web</li>
+
+</ul>
+
+    </div>
+
+
+<div id="source5" class="step" data-x="5750" data-y="600" data-rotate="0" data-scale="2">
+
+<img src="pymol.png" width="800" alt="pymol">
+
+    </div>
+
+
+
+    <div id="source3" class="step" data-x="5500" data-y="2000" data-scale="2">
+
+<ul>
+<li>Manipular secuencias</li>
+<li>BLAST</li>
+<li>Acceso a bases de datos online</li>
+<li>Herramientas CLI</li>
+<li>Clustering</li>
+<li>Filogenética</li>
+<li>Estructura proteica</li>
+<li>Genética de población</li>
+</ul>
+
+    </div>
+
+
+    <div id="source4" class="step" data-x="7500" data-y="2900" data-scale="2">
+
+<h2>Contribuciones</h2>
+
+<ul>
+<li>Tm function</li>
+<li>LCC function</li>
+<li>Two checksums function in Bio.SeqUtils.CheckSum</li>
+<li>SNPs parser (in progress)</li>
+
+<hr>
+
+<li>Feedback</li>
+<li>Bug reporting</li>
+<li>Testing (BLAST, SFF files, BioSQL)</li>
+<li>Documentation</li>
+</ul>
+
+</div>
+
+
+
+
+    <!--
+        
+        And the last one shows full power and flexibility of impress.js.
+        
+        You can not only position element in 3D, but also rotate it around any axis.
+        So this one here will get rotated by -40 degrees (40 degrees anticlockwise) around X axis and
+        10 degrees (clockwise) around Y axis.
+        
+        You can of course rotate it around Z axis with `data-rotate-z` - it has exactly the same effect
+        as `data-rotate` (these two are basically aliases).
+        
+    -->
+    <div id="problemas" class="step" data-x="2200" data-y="3100" data-scale="1">
+
+<div>
+<b>Problema:</b> Manipulación de secuencias en lote.
+<b>Herramienta:</b> SeqRecord y SeqIO.
+</div>
+<br>
+<div>
+<b>Problema:</b> Filtrar contaminación de vectores.
+<b>Herramienta:</b> SeqRecord, SeqIO, NCBIXML and NCBIStandalone.
+</div>
+<br>
+<div>
+<b>Problema:</b> Buscar primers.
+<b>Herramienta:</b> Emboss.Applications.
+</div>
+<br>
+<div>
+<b>Problema:</b> Calcular temperatura de melting.
+<b>Herramienta:</b> SeqUtils.
+</div>
+
+
+    </div>
+
+
+    <div id="problemas2" class="step" data-x="3200" data-y="3100" data-scale="1">
+
+<div>
+<b>Problema:</b> Introducir mutaciones con restricciones.
+<b>Herramienta:</b> Restriction y Data.CodonTable.
+</div>
+<br>
+<div>
+<b>Problema:</b> Extraer información de un alineamiento.
+<b>Herramienta:</b> Clustalw.MultipleAlignCL.
+</div>
+<br>
+<div>
+<b>Problema:</b> Obtener una matriz de sustitución de un alineamiento.
+<b>Herramienta:</b> Align.AlignInfo y SubsMat.
+</div>
+
+
+    </div>
+
+    <div id="problemas3" class="step" data-x="4200" data-y="3100" data-scale="1">
+
+<div>
+<b>Problema:</b> Calcular linkage desiquilibrium.
+<b>Herramienta:</b> PopGen.GenePop.
+</div>
+<br>
+<div>
+<b>Problema:</b> Persistencia de datos (en RDB).
+<b>Herramienta:</b> BioSQL.
+</div>
+<br>
+<div>
+<b>Problema:</b> Extraer datos de Entrez.
+<b>Herramienta:</b> Entrez.efetch.
+</div>
+<br>
+<div>
+<b>Problema:</b> Parsear datos de estructuras.
+<b>Herramienta:</b> PDB.PDBParser.
+</div>
+
+
+    </div>
+
+
+
+    <div id="problemas4" class="step" data-x="2200" data-y="4000" data-scale="1">
+
+    <img alt="Exones logo" style="margin:0px auto;display:block" src="exones.png" width="100%" />
+
+    </div>
+
+    <div id="problemas5" class="step" data-x="3200" data-y="4000" data-scale="1">
+
+<ul>
+<li>Búsqueda por homología de secuencia en genoma de referencia (AT): NCBIStandalone y NCBIXML</li>
+<li>Persistencia de los resultados: MySQL o SQLite</li>
+<li>Alineamiento de 3 secuencias: target, AT mRNA y AT full length: Bio.Clustalw.MultipleAlignCL y Bio.Clustalw.do_alignmen</li>
+</ul>
+
+</div>
+
+
+    <div id="problemas6" class="step" data-x="4200" data-y="4000" data-scale="1">
+
+    <img alt="Exones logo" style="margin:0px auto;display:block" src="intrones.png" width="100%" />
+
+    </div>
+
+
+    <div id="problemas7" class="step" data-x="2200" data-y="4900" data-scale="1">
+
+    <img alt="Exones logo" style="margin:0px auto;display:block" src="tomate1.png" width="100%" />
+
+    </div>
+
+    <div id="problemas8" class="step" data-x="3200" data-y="4900" data-scale="1">
+
+    <img alt="Exones logo" style="margin:0px auto;display:block" src="tomate2.png" width="100%" />
+
+    </div>
+    <div id="problemas9" class="step" data-x="4200" data-y="4900" data-scale="1">
+
+    <img alt="Exones logo" style="margin:0px auto;display:block" src="tomate3.png" width="100%" />
+
+    </div>
+
+    <div id="problemas10" class="step" data-x="5200" data-y="4900" data-scale="1">
+
+    <img alt="Exones logo" style="margin:0px auto;display:block" src="tomate5.png" width="100%" />
+
+    </div>
+
+    <div id="problemas11" class="step" data-x="6200" data-y="4900" data-scale="1">
+
+    <img alt="Exones logo" style="margin:0px auto;display:block" src="tomate6.png" width="100%" />
+
+    </div>
+    <div id="problemas12" class="step" data-x="7200" data-y="4900" data-scale="1">
+
+    <img alt="Exones logo" style="margin:0px auto;display:block" src="tomate7.png" width="100%" />
+
+    </div>
+
+    <div id="MicroRNA" class="step" data-x="5200" data-y="3100" data-scale="1">
+
+    <img alt="Exones logo" style="margin:0px auto;display:block" src="microrna.jpg" width="100%" />
+
+    </div>
+
+
+  <div id="code1" class="step" data-x="6200" data-y="3100" data-scale="1">
+
+<p>Clase secuencia</p>
+
+<pre>
+>>> from Bio.Seq import Seq
+>>> from Bio.Alphabet import IUPAC
+>>> seq = Seq('GATCGATGGGCCTATATA', IUPAC.unambiguous_dna)
+>>> rna = seq.transcribe()
+>>> str(rna)
+'GAUCGAUGGGCCUAUAUA'
+>>> rna.translate()
+Seq('DRWAYI', IUPACProtein())
+</pre>
+
+</div>
+
+    <div id="code2" class="step" data-x="7200" data-y="1800" data-scale="1">
+
+    <img alt="Exones logo" style="margin:0px auto;display:block" src="blast1.png" width="100%" />
+
+    </div>
+
+    <div id="snp0" class="step" data-x="7200" data-y="500" data-scale="1">
+
+    <img alt="Exones logo" style="margin:0px auto;display:block" src="Angelina_Jolie_Cannes_2007.jpg" width="60%" />
+
+    <small>Fuente: Wikipedia,  Creative Commons Attribution-Share Alike 3.0. Attribution: Georges Biard</small>
+
+    </div>
+
+
+
+    <div id="snp1" class="step" data-x="5200" data-y="4000" data-scale="1">
+
+    <a href="https://www.23andme.com/you/journal/brca/overview/"><img alt="Exones logo" style="margin:0px auto;display:block" src="snp1.png" width="100%" /></a>
+
+    </div>
+
+
+    <div id="snp2" class="step" data-x="6200" data-y="4000" data-scale="1">
+
+    <img alt="Exones logo" style="margin:0px auto;display:block" src="snp2.png" width="100%" />
+
+    </div>
+
+
+    <div id="snp3" class="step" data-x="7200" data-y="4000" data-scale="1">
+
+    <img alt="Exones logo" style="margin:0px auto;display:block" src="snp3.png" width="100%" />
+
+    </div>
+
+
+
+    <div id="recursos" class="step" data-x="7200" data-y="-2000" data-scale="1">
+<h2>Recursos</h2>
+<br>
+Biopython: <a href="http://www.biopython.org">biopython.org</a><br>
+Documentación: <a href="biopython.org/wiki/Category:Wiki_Documentation">biopython.org/wiki/Category:Wiki_Documentation</a><br>
+Cock PJ, et al. “Biopython: freely available Python tools for computational molecular biology and bioinformatics”. Bioinformatics 2009 Jun 1; 25(11) 1422-3. doi:10.1093/bioinformatics/btp163 pmid:19304878.<br>
+Bassi S (2007) A Primer on Python for Life Science Researchers. PLoS Comput Biol 3(11): e199. doi:10.1371/journal.pcbi.0030199<br>
+Book: “Python for Bioinformatics” <a href="http://tinyurl.com/biopython">http://tinyurl.com/biopython</a><br>
+<a href="http://www.amazon.com/gp/product/B004APA3XK/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B004APA3XK&linkCode=as2&tag=genesdigitale-20">Python en 8 clases: Aprendiendo a programar con Python (Spanish Edition)</a><img src="http://www.assoc-amazon.com/e/ir?t=genesdigitale-20&l=as2&o=1&a=B004APA3XK" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+<br>
+
+Mailing list:<br>
+Users: http://lists.open-bio.org/mailman/listinfo/biopython/<br>
+Developers: http://lists.open-bio.org/mailman/listinfo/biopython-dev<br>
+Python en Argentina: <a href="http://www.python.org.ar">python.org.ar</a>
+</div>
+
+    <div id="thx" class="step" data-x="7200" data-y="-1000" data-scale="1" data-rotate="180">
+
+    <img alt="maximo" style="margin:0px auto;display:block" src="gracias.png" width="100%" />
+
+    </div>
+
+    <!--
+        
+        So to make a summary of all the possible attributes used to position presentation steps, we have:
+        
+        * `data-x`, `data-y`, `data-z` - they define the position of **the center** of step element on
+            the canvas in pixels; their default value is 0;
+        * `data-rotate-x`, `data-rotate-y`, 'data-rotate-z`, `data-rotate` - they define the rotation of
+            the element around given axis in degrees; their default value is 0; `data-rotate` and `data-rotate-z`
+            are exactly the same;
+        * `data-scale` - defines the scale of step element; default value is 1
+        
+        These values are used by impress.js in CSS transformation functions, so for more information consult
+        CSS transfrom docs: https://developer.mozilla.org/en/CSS/transform
+        
+    -->
+
+
+
+    <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
+
+
+    </div>
+
+</div>
+
+<!--
+    
+    Hint is not related to impress.js in any way.
+    
+    But it can show you how to use impress.js features in creative way.
+    
+    When the presentation step is shown (selected) its element gets the class of "active" and the body element
+    gets the class based on active step id `impress-on-ID` (where ID is the step's id)... It may not be
+    so clear because of all these "ids" in previous sentence, so for example when the first step (the one with
+    the id of `bored`) is active, body element gets a class of `impress-on-bored`.
+    
+    This class is used by this hint below. Check CSS file to see how it's shown with delayed CSS animation when
+    the first step of presentation is visible for a couple of seconds.
+    
+    ...
+    
+    And when it comes to this piece of JavaScript below ... kids, don't do this at home ;)
+    It's just a quick and dirty workaround to get different hint text for touch devices.
+    In a real world it should be at least placed in separate JS file ... and the touch content should be
+    probably just hidden somewhere in HTML - not hard-coded in the script.
+    
+    Just sayin' ;)
+    
+-->
+<script>
+if ("ontouchstart" in document.documentElement) { 
+    document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
+}
+</script>
+
+<!--
+    
+    Last, but not least.
+    
+    To make all described above really work, you need to include impress.js in the page.
+    I strongly encourage to minify it first.
+    
+    In here I just include full source of the script to make it more readable.
+    
+    You also need to call a `impress().init()` function to initialize impress.js presentation.
+    And you should do it in the end of your document. Not only because it's a good practice, but also
+    because it should be done when the whole document is ready.
+    Of course you can wrap it in any kind of "DOM ready" event, but I was too lazy to do so ;)
+    
+-->
+<script src="js/impress.js"></script>
+<script>impress().init();</script>
+
+<!--
+    
+    The `impress()` function also gives you access to the API that controls the presentation.
+    
+    Just store the result of the call:
+    
+        var api = impress();
+    
+    and you will get three functions you can call:
+    
+        `api.init()` - initializes the presentation,
+        `api.next()` - moves to next step of the presentation,
+        `api.prev()` - moves to previous step of the presentation,
+        `api.goto( idx | id | element, [duration] )` - moves the presentation to the step given by its index number
+                id or the DOM element; second parameter can be used to define duration of the transition in ms,
+                but it's optional - if not provided default transition duration for the presentation will be used.
+    
+    You can also simply call `impress()` again to get the API, so `impress().next()` is also allowed.
+    Don't worry, it wont initialize the presentation again.
+    
+    For some example uses of this API check the last part of the source of impress.js where the API
+    is used in event handlers.
+    
+-->
+
+</body>
+</html>
+
+<!--
+    
+    Now you know more or less everything you need to build your first impress.js presentation, but before
+    you start...
+    
+    Oh, you've already cloned the code from GitHub?
+    
+    You have it open in text editor?
+    
+    Stop right there!
+    
+    That's not how you create awesome presentations. This is only a code. Implementation of the idea that
+    first needs to grow in your mind.
+    
+    So if you want to build great presentation take a pencil and piece of paper. And turn off the computer.
+    
+    Sketch, draw and write. Brainstorm your ideas on a paper. Try to build a mind-map of what you'd like
+    to present. It will get you closer and closer to the layout you'll build later with impress.js.
+    
+    Get back to the code only when you have your presentation ready on a paper. It doesn't make sense to do
+    it earlier, because you'll only waste your time fighting with positioning of useless points.
+    
+    If you think I'm crazy, please put your hands on a book called "Presentation Zen". It's all about 
+    creating awesome and engaging presentations.
+    
+    Think about it. 'Cause impress.js may not help you, if you have nothing interesting to say.
+    
+-->
+
+<!--
+    
+    Are you still reading this?
+    
+    For real?
+    
+    I'm impressed! Feel free to let me know that you got that far (I'm @bartaz on Twitter), 'cause I'd like
+    to congratulate you personally :)
+    
+    But you don't have to do it now. Take my advice and take some time off. Make yourself a cup of coffee, tea,
+    or anything you like to drink. And raise a glass for me ;)
+    
+    Cheers!
+    
+-->
+
